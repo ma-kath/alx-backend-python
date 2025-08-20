@@ -1,15 +1,7 @@
-import mysql.connector
-
-# Database configuration
-config = {
-    'user': 'root',
-    'password': 'm1ss@m0',
-    'host': 'localhost',
-    'database': 'ALX_prodev'
-}
+seed = __import__('seed')
 
 def stream_users():
-    conn = mysql.connector.connect(**config)
+    conn = seed.connect_to_prodev()
     cursor = conn.cursor(dictionary=True)  
     try:
         cursor.execute("SELECT * FROM user_data")
