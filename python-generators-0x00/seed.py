@@ -3,14 +3,25 @@ import pandas as pd
 import uuid
 import os
 
+# Config 
+
+config1 = {
+    'user': 'root',
+    'password': 'm1ss@m0',
+    'host': 'localhost',
+}
+
+config = {
+    'user': 'root',
+    'password': 'm1ss@m0',
+    'host': 'localhost',
+    'database': 'ALX_prodev'
+}
+
 # Connect to MYSQL db server
 def connect_db():
     try:
-        conn = mysql.connector.connect(
-            host='localhost',
-            user='makath',
-            password='up99d@sh'
-        )
+        conn = mysql.connector.connect(**config1)
         return conn
     except mysql.connector.Error as err:
         print(f"Error: {err}")
@@ -25,12 +36,7 @@ def create_database(conn):
 # Connect to the ALX_prodev database
 def connect_to_prodev():
     try:
-        conn = mysql.connector.connect(
-            host='localhost',
-            user='makath',
-            password='up99d@sh',
-            database='ALX_prodev'
-        )
+        conn = mysql.connector.connect(**config)
         return conn
     except mysql.connector.Error as err:
         print(f"Error: {err}")
@@ -57,8 +63,7 @@ def insert_data(conn, data):
         user_id = str(uuid.uuid4())
         cursor.execute("""
             INSERT INTO user_data (user_id, name, email, age)
-            VALUES (%s, %s, %s, %s)
-        """, 
+            VALUES (%s, %s, %s, %s) """, 
         (user_id, row['name'], row['email'], row['age']))
-        conn.commit()
-        cursor.close()
+    conn.commit()
+    cursor.close()
