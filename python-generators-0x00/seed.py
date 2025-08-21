@@ -62,7 +62,7 @@ def insert_data(conn, data):
     for index, row in data.iterrows():
         user_id = str(uuid.uuid4())
         cursor.execute("""
-            INSERT INTO user_data (user_id, name, email, age)
+            INSERT IGNORE INTO user_data (user_id, name, email, age)
             VALUES (%s, %s, %s, %s) """, 
         (user_id, row['name'], row['email'], row['age']))
     conn.commit()

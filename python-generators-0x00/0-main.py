@@ -12,8 +12,8 @@ if connection:
     
     connection = seed.connect_to_prodev()
     if connection:
-        # seed.create_table(connection)
-        # print(f"Table created successfully.")
+        seed.create_table(connection)
+        print(f"Table created successfully.")
         # Loading data 
         if os.path.exists('user_data.csv'):
             data = pd.read_csv('user_data.csv')
