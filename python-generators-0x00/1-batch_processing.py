@@ -24,10 +24,13 @@ def stream_users_in_batches(batch_size):
     conn.close()
 
 def batch_processing(batch_size):
+    results = []
     for batch in stream_users_in_batches(batch_size): 
         
         filtered_users = [user for user in batch if user['age'] > 25]
         
         for user in filtered_users:  
             yield user 
-            print(user)
+            results.append(user)
+            
+    return results
