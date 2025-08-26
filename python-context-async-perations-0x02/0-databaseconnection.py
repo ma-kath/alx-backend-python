@@ -15,8 +15,10 @@ class DatabaseConnection:
             
 with DatabaseConnection('user_data.db') as conn:
     cursor = conn.cursor()
-    cursor.execute('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT)')
-    cursor.execute('INSERT OR IGNORE INTO users (name) VALUES (?)', ('Alice',))
+    cursor.execute('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT, age INTEGER)')
+    cursor.execute('INSERT INTO users (name, age) VALUES (?, ?)', ('Alice', 30))
+    cursor.execute('INSERT INTO users (name, age) VALUES (?, ?)', ('Fred', 41))
+    cursor.execute('INSERT INTO users (name, age) VALUES (?, ?)', ('Mireille', 65))
     conn.commit()
     
     cursor.execute('SELECT * FROM users')
