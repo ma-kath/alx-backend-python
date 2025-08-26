@@ -1,6 +1,6 @@
 import sqlite3
 
-class ExcuteQuery:
+class ExecuteQuery:
     def __init__(self, query, params):
         self.query = query
         self.params = params
@@ -25,6 +25,6 @@ class ExcuteQuery:
 query = "SELECT * FROM users WHERE age > ?"
 params = (25,)
 
-with ExcuteQuery(query, params) as executor:
+with ExecuteQuery(query, params) as executor:
     results = executor.execute()
     print(results)
