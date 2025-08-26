@@ -28,5 +28,4 @@ if __name__ == "__main__":
 
     with ExcuteQuery(query, params) as executor:
         results = executor.execute()
-        for row in results:
-            print(row)
+        print(results)
