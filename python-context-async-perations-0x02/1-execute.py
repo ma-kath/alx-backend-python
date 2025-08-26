@@ -22,10 +22,9 @@ class ExcuteQuery:
         self.cursor.execute(self.query, self.params)
         return self.cursor.fetchall()
         
-if __name__ == "__main__":
-    query = "SELECT * FROM users WHERE age > ?"
-    params = (25,)
+query = "SELECT * FROM users WHERE age > ?"
+params = (25,)
 
-    with ExcuteQuery(query, params) as executor:
-        results = executor.execute()
-        print(results)
+with ExcuteQuery(query, params) as executor:
+    results = executor.execute()
+    print(results)
