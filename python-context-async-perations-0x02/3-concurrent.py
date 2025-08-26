@@ -22,5 +22,5 @@ async def fetch_concurrently():
 
 if __name__ == "__main__":
     all_users, older_users = asyncio.run(fetch_concurrently())
-    print("All users:", all_users)
-    print("Users older than 40:", older_users)
+    print("All users: ", all_users)
+    print("Users older than 40: ", older_users)
