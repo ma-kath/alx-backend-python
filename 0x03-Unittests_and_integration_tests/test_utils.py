@@ -36,7 +36,12 @@ class TestGetJson(unittest.TestCase):
         ("http://holberton.io", {"payload": False}),
     ])
     @patch("utils.requests.get")
-    def test_get_json(self, test_url: str, test_playload: dict, mock_get: Mock):
+    def test_get_json(
+        self,
+        test_url: str,
+        test_playload: dict,
+        mock_get: Mock
+    ):
         """get_json returns expected payload and calls requests.get once."""
         mock_get.return_value.json.return_value = test_playload
 
@@ -61,7 +66,11 @@ class TestMemoize(unittest.TestCase):
                 """Memoized property that calls a_method."""
                 return self.a_method()
         test_obj = TestClass()
-        with patch.object(test_obj, 'a_method', wraps=test_obj.a_method) as mock_method:
+        with patch.object(
+            test_obj,
+            'a_method',
+            wraps=test_obj.a_method
+        ) as mock_method:
             result1 = test_obj.a_property
             result2 = test_obj.a_property
             self.assertEqual(result1, 42)
