@@ -1,5 +1,7 @@
 Unittests and Integration Tests
 
-ssh 6e4761bbde27@6e4761bbde27.318ebed1.alx-cod.online
+0. Parameterize a unit test
 
-sftp 6e4761bbde27@6e4761bbde27.318ebed1.alx-cod.online
+1. Parameterize a unit test
+
+2. Mock HTTP calls
