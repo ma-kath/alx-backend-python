@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 """A github org client
 """
 from typing import (
@@ -56,3 +57,4 @@ class GithubOrgClient:
         except KeyError:
             return False
         return has_license
+    
