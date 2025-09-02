@@ -82,14 +82,12 @@ fi = fixtures.TEST_PAYLOAD[0]
 org_payload, repos_payload, expected_repos, apache2_repos = fi
 
 
-@parameterized_class([
-    {
+@parameterized_class([{
         "org_payload": org_payload,
         "repos_payload": repos_payload,
         "expected_repos": expected_repos,
         "apache2_repos": apache2_repos,
-    }
-])
+    }])
 class TestIntegrationGithubOrgClient(unittest.TestCase):
     """Integration test with fixtures and mock"""
     @classmethod
