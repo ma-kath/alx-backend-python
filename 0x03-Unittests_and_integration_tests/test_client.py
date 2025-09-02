@@ -64,6 +64,7 @@ class TestGithubOrgClient(unittest.TestCase):
             mock_get_json.assert_called_once_with(test_url)
 
     def has_license(self, repo, license_key):
+        """Test GithubOrgClient.has_license defined."""
         return repo.get("license", {}).get("key") == license_key
 
     @parameterized.expand([
