@@ -1,6 +1,6 @@
 import uuid
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractUser, Group, Permission
 from django.utils import timezone
 
 
@@ -18,6 +18,25 @@ class User(AbstractUser):
     ]
     role = models.CharField(max_length=10, choices=ROLE_CHOICES, null=False)
     created_at = models.DateTimeField(default=timezone.now)
+    
+    # Groups and user permissions for Django's auth system
+    groups = models.ManyToManyField(
+        Group,
+        related_name='chats_user_set',
+        blank=True,
+        help_text='The groups this user belongs to.',
+        verbose_name='groups',
+        related_query_name='user',
+    )
+    user_permissions = models.ManyToManyField(
+        Permission,
+        related_name='chats_user_set',
+        blank=True,
+        help_text='Specific permissions for this user.',
+        verbose_name='user permissions',
+        related_query_name='user',
+    )
+    
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'firstname', 'lastname']
     
