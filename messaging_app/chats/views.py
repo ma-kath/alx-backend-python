@@ -4,15 +4,21 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from .models import User, Conversation, Message
 from .serializers import UserSerializer, ConversationSerializer, MessageSerializer
+from .permissions import IsParticipant
 
 class ConversationViewSet(viewsets.ModelViewSet):
     """ViewSet for managing conversations."""
-    queryset = Conversation.objects.all()
+    #queryset = Conversation.objects.all()
     serializer_class = ConversationSerializer
-    #permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsParticipant]
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['participants_id__email', 'conversation_id']
     ordering_fields = ['created_at']
+    
+    def get_queryset(self):
+        """Limit conversations to those involving the authenticated user."""
+        user = self.request.user
+        return Conversation.objects.filter(participants_id=user)
     
     def create(self, request, *args, **kwargs):
         """Create a new conversation."""
@@ -41,12 +47,17 @@ class ConversationViewSet(viewsets.ModelViewSet):
 
 class MessageViewSet(viewsets.ModelViewSet):
     """ViewSet for managing messages."""
-    queryset = Message.objects.all()
+    #queryset = Message.objects.all()
     serializer_class = MessageSerializer
-    #permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsParticipant]
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['message_body', 'sender_id__email']
     ordering_fields = ['sent_at']
+    
+    def get_queryset(self):
+        """Limit messages to those in conversations involving the authenticated user."""
+        user = self.request.user
+        return Message.objects.filter(conversation_id__participants_id=user)
     
     def create(self, request, *args, **kwargs):
         """Send a message to an existing conversation."""

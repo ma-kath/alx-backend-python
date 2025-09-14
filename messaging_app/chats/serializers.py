@@ -8,7 +8,8 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = [
             'user_id', 'first_name', 'last_name', 
-            'email', 'phone_number', 'role', 'created_at'
+            'email', 'phone_number', 'role', 'created_at',
+            'full_name',
         ]
     
     def get_full_name(self, obj):
@@ -41,7 +42,7 @@ class ConversationSerializer(serializers.ModelSerializer):
         model = Conversation
         fields = [
             'conversation_id', 'participants_id', 
-            'created_at', 'messages', 'message_count'
+            'created_at', 'messages', 'message_count', 'participants'
         ]
     
     def get_message_count(self, obj):
