@@ -4,13 +4,13 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from .models import User, Conversation, Message
 from .serializers import UserSerializer, ConversationSerializer, MessageSerializer
-from .permissions import IsParticipant
+from .permissions import IsParticipantOfConversation
 
 class ConversationViewSet(viewsets.ModelViewSet):
     """ViewSet for managing conversations."""
     #queryset = Conversation.objects.all()
     serializer_class = ConversationSerializer
-    permission_classes = [IsAuthenticated, IsParticipant]
+    permission_classes = [IsAuthenticated, IsParticipantOfConversation]
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['participants_id__email', 'conversation_id']
     ordering_fields = ['created_at']
@@ -49,7 +49,7 @@ class MessageViewSet(viewsets.ModelViewSet):
     """ViewSet for managing messages."""
     #queryset = Message.objects.all()
     serializer_class = MessageSerializer
-    permission_classes = [IsAuthenticated, IsParticipant]
+    permission_classes = [IsAuthenticated, IsParticipantOfConversation]
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['message_body', 'sender_id__email']
     ordering_fields = ['sent_at']
